@@ -1,3 +1,6 @@
+<%@page import="com.devicemgt.util.*"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="com.devicemgt.model.Device"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,8 +9,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>WSO2 Device Repository</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
+
 </head>
-<body id="page1">
+<body id="page1" onload="loadXMLDoc()">
 	<div id="maindiv">
 		<table width="900" height="80" border="0" cellspacing="1">
 			<tr>
@@ -50,34 +54,53 @@
 		</ul>
 		</nav>
 
+		<center style="Background-color: #ccff00;">
+			<b><font color="red"> <%
+ 	String errorMessage = (String) request
+ 			.getAttribute(BackendConstants.ERROR_MESSAGE);
+ 	if (errorMessage != null) {
+ 		out.println("*" + errorMessage);
+ 	}
+ %>
+			</font></b>
+
+			<%
+				String actionType = "addDevice";
+				session.setAttribute("actionType", actionType);
+			%>
+		</center>
 		<div id="frame">
 			<div id="content">
-
-				<table width="900" height="80" border="0" cellspacing="1">
-					<tr height="60"></tr>
-
-
-
-					<tr>
-						
-						<td width="250"><img src="images/repo.jpg" width="210"
-							height="210" /></td>
-						<td width="600">
-							<h3 align="left">Features</h3> <br />
-							<li type="square">To track the status of devices</li>
-						<br />
-							<li type="square">To track owner of the devices</li>
-						<br />
-							<li type="square">Device types, statues configurable</li>
-						<br />
-
-
-						</td>
-						<td width="20">
-					</tr>
-
-					<tr height="60"></tr>
-				</table>
+				<form action="DeviceController" method="get">
+					<center>
+						<h2>Add New Device</h2>
+						<table border="0" cellspacing="1">
+							<tr>
+								<td class="unandpwd">Device Name :</td>
+								<td><input type="text" name="dname"
+									placeholder="Enter Device Name" /></td>
+							</tr>
+							<tr>
+								<td class="unandpwd">Description :</td>
+								<td><input type="text" name="description"
+									placeholder="Enter Description" /></td>
+							</tr>
+							<tr>
+								<td class="unandpwd">Status :</td>
+								<td><input type="text" name="status"
+									placeholder="Enter Status" /></td>
+							</tr>
+							<tr>
+								<td class="unandpwd">Type :</td>
+								<td><input type="text" name="type" placeholder="Enter Type" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td><input type="submit" value="Add Device" /></td>
+							</tr>
+						</table>
+					</center>
+				</form>
 
 			</div>
 		</div>
