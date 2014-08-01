@@ -144,7 +144,7 @@ public class DeviceController extends HttpServlet {
 
 				}
 
-				String restURL = Rest.getProperty() +"/searchdevice";
+				String restURL = BackendConstants.SERVICEURL +"/searchdevice";
 
 				if (firstPara) {
 					restURL = restURL + options;
@@ -177,7 +177,7 @@ public class DeviceController extends HttpServlet {
 				device.setStatusId(Integer.parseInt(strStatus));
 				device.setTypeId(Integer.parseInt(strType));
 
-				String restURL = Rest.getProperty() +"/device/adddevice";
+				String restURL = BackendConstants.SERVICEURL +"/device/adddevice";
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
 				strResponse = deviceRepoDAO.addDevice(device, restURL);
@@ -208,7 +208,7 @@ public class DeviceController extends HttpServlet {
 				String strDltRadio = request.getParameter("deleteDevice");
 				System.out.println(strDltRadio);
 
-				String restURL = Rest.getProperty() +"/device/deletedevice/"
+				String restURL = BackendConstants.SERVICEURL +"/device/deletedevice/"
 						+ strDltRadio;
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
@@ -232,7 +232,7 @@ public class DeviceController extends HttpServlet {
 				String strBtnEdit = request.getParameter("editDevice");
 				System.out.println(strBtnEdit);
 
-				String restURL = Rest.getProperty() +"/searchdevice?deviceId="
+				String restURL = BackendConstants.SERVICEURL +"/device/getdevices?deviceId="
 						+ strBtnEdit;
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -262,7 +262,7 @@ public class DeviceController extends HttpServlet {
 
 				System.out.println(device);
 
-				String restURL = Rest.getProperty() +"/device/updatedevice/"
+				String restURL = BackendConstants.SERVICEURL +"/device/updatedevice/"
 						+ strID;
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
@@ -320,7 +320,7 @@ public class DeviceController extends HttpServlet {
 		LinkedList<Device> deviceList = new LinkedList<Device>();
 		try {
 
-			String strURL = Rest.getProperty() +"/searchdevice";
+			String strURL = BackendConstants.SERVICEURL +"/device/getdevices";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 

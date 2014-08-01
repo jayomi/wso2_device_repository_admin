@@ -11,4 +11,5 @@ public interface BackendConstants {
 	String DELETE = "delete";
 	String DEVICELIST = "deviceList";
 	String USERLIST= "userlist";
+	String SERVICEURL="https://appserver.dev.cloud.wso2.com/t/manil8056/webapps/devicemanagementser-default-SNAPSHOT/services/devicerepository";
 }

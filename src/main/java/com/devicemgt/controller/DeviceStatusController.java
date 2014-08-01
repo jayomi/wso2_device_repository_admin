@@ -100,7 +100,7 @@ public class DeviceStatusController extends HttpServlet {
 
 			if (actionType.equals("getdevicestatus")) {
 
-				String strURL = Rest.getProperty() +"/devicestatus/getdevicestatuses";
+				String strURL = BackendConstants.SERVICEURL +"/devicestatus/getdevicestatuses";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -127,7 +127,7 @@ public class DeviceStatusController extends HttpServlet {
 				String strSearch = request.getParameter("tsId");
 				System.out.println(strSearch);
 
-				String restURL = Rest.getProperty() +"/devicestatus/getdevicestatuses?tsId="
+				String restURL = BackendConstants.SERVICEURL +"/devicestatus/getdevicestatuses?tsId="
 						+ strSearch;
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -151,7 +151,7 @@ public class DeviceStatusController extends HttpServlet {
 				ts = new DeviceStatus();
 				ts.setDeviceStatusName(strName);				
 
-				String restURL = Rest.getProperty() +"/devicestatus/adddevicestatus";
+				String restURL = BackendConstants.SERVICEURL +"/devicestatus/adddevicestatus";
 
 				deviceStatusDao= new DeviceStatusDaoImpl();
 				strResponse =deviceStatusDao.addDeviceStatus(ts, restURL);
@@ -188,7 +188,7 @@ public class DeviceStatusController extends HttpServlet {
 		LinkedList<DeviceStatus> tsList = new LinkedList<DeviceStatus>();
 		try {
 
-			String strURL = Rest.getProperty() +"/devicestatus/getdevicestatuses";
+			String strURL = BackendConstants.SERVICEURL +"/devicestatus/getdevicestatuses";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 

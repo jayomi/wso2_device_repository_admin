@@ -140,7 +140,7 @@ public class UserController extends HttpServlet {
 				user.setUserLname(lname);
 				user.setUsername(userName);
 
-				String restURL = Rest.getProperty() +"/user/adduser";
+				String restURL = BackendConstants.SERVICEURL +"/user/adduser";
 
 				userDAO = new UserDAOImpl();
 
@@ -155,7 +155,7 @@ public class UserController extends HttpServlet {
 			}
 			if (actionType.equals("getUsersOnLoad")) {
 
-				String strURL = Rest.getProperty() +"/user/getusers";
+				String strURL = BackendConstants.SERVICEURL +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -174,7 +174,7 @@ public class UserController extends HttpServlet {
 			
 			if (actionType.equals("getMyProfile")) {
 
-				String strURL = Rest.getProperty() +"/user/getusers";
+				String strURL = BackendConstants.SERVICEURL +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -196,13 +196,13 @@ public class UserController extends HttpServlet {
 				String strDltRadio = request.getParameter("deleteUser");
 				System.out.println(strDltRadio);
 
-				String restURL = Rest.getProperty() +"/user/deleteuser/"
+				String restURL = BackendConstants.SERVICEURL +"/user/deleteuser/"
 						+ strDltRadio;
 
 				userDAO = new UserDAOImpl();
 				strResponse = userDAO.deleteUser(restURL);
 
-				String strURL = Rest.getProperty() +"/user/getusers";
+				String strURL = BackendConstants.SERVICEURL +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -226,7 +226,7 @@ public class UserController extends HttpServlet {
 				String strBtnEdit = request.getParameter("editUser");
 				System.out.println(strBtnEdit);
 
-				String restURL = Rest.getProperty() +"/user/getusers?userId="
+				String restURL = BackendConstants.SERVICEURL +"/user/getusers?userId="
 						+ strBtnEdit;
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -271,7 +271,7 @@ public class UserController extends HttpServlet {
 
 				System.out.println(user);
 
-				String restURL = Rest.getProperty() +"/user/updateuser/"
+				String restURL = BackendConstants.SERVICEURL +"/user/updateuser/"
 						+ strID;
 
 				userDAO = new UserDAOImpl();

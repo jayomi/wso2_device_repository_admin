@@ -117,7 +117,7 @@ public class DeviceTypeController extends HttpServlet {
 					deviceType
 							.setDeviceTypeDescription(strdeviceTypeDescription);
 
-					String restURL = Rest.getProperty() +"/devicetype/adddevicetype";
+					String restURL = BackendConstants.SERVICEURL +"/devicetype/adddevicetype";
 
 					deviceTypeDAO = new DeviceTypeDAOImpl();
 					strResponse = deviceTypeDAO.addDeviceType(deviceType,
@@ -173,7 +173,7 @@ public class DeviceTypeController extends HttpServlet {
 		LinkedList<DeviceType> deviceTypeList = new LinkedList<DeviceType>();
 		try {
 
-			String strURL = Rest.getProperty() +"/devicetype/getdevicetypes";
+			String strURL = BackendConstants.SERVICEURL +"/devicetype/getdevicetypes";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 

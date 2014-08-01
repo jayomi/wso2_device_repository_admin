@@ -4,9 +4,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlRootElement(name = "device")
-@XmlType(propOrder = { "intId", "strName", "strDescription", "intStatusId",
-		"intTypeId" })
+@XmlRootElement(name = "Device")
+//@XmlType(propOrder = { "intId", "strName", "strDescription", "intStatusId",
+//		"intTypeId" })
 public class Device {
 
 	private int intId;

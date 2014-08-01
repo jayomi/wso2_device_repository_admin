@@ -97,7 +97,7 @@ public class TransactionStatusController extends HttpServlet {
 
 			if (actionType.equals("gettransactionstatus")) {
 
-				String strURL = Rest.getProperty() +"/transactionstatus/gettransactionstatus";
+				String strURL = BackendConstants.SERVICEURL +"/transactionstatus/gettransactionstatus";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -124,7 +124,7 @@ public class TransactionStatusController extends HttpServlet {
 				String strSearch = request.getParameter("tsId");
 				System.out.println(strSearch);
 
-				String restURL = Rest.getProperty() +"/transactionstatus/gettransactionstatus?tsId="
+				String restURL = BackendConstants.SERVICEURL +"/transactionstatus/gettransactionstatus?tsId="
 						+ strSearch;
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -148,7 +148,7 @@ public class TransactionStatusController extends HttpServlet {
 				ts = new TransactionStatus();
 				ts.setTransactionStatusName(strName);				
 
-				String restURL = Rest.getProperty() +"/transactionstatus/addtransactionstatus";
+				String restURL = BackendConstants.SERVICEURL +"/transactionstatus/addtransactionstatus";
 
 				transactionStatusDao= new TransactionStatusDaoImpl();
 				strResponse =transactionStatusDao.addDevice(ts, restURL);
@@ -185,7 +185,7 @@ public class TransactionStatusController extends HttpServlet {
 		LinkedList<TransactionStatus> tsList = new LinkedList<TransactionStatus>();
 		try {
 
-			String strURL = Rest.getProperty() +"/transactionstatus/gettransactionstatus";
+			String strURL = BackendConstants.SERVICEURL +"/transactionstatus/gettransactionstatus";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 

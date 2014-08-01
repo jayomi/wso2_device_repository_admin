@@ -130,7 +130,7 @@ public class TransactionController extends HttpServlet {
 
 			if (actionType.equals("getTransaction")) {
 
-				String strURL = Rest.getProperty() + "/transaction/gettransactionsdetail";
+				String strURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -156,17 +156,17 @@ public class TransactionController extends HttpServlet {
 				
 				if(( strSearch != "" ) && ( strSearch2 != "") )
 				{
-					restURL = Rest.getProperty() + "/transaction/gettransactionsdetail?deviceId="+ strSearch + "&statusId=" + strSearch2;
+					restURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail?deviceId="+ strSearch + "&statusId=" + strSearch2;
 				} else if(( strSearch == "") && ( strSearch2 != "" ) )
 				{
-					restURL = Rest.getProperty() + "/transaction/gettransactionsdetail?statusId=" + strSearch2;
+					restURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail?statusId=" + strSearch2;
 				} 
 				else if(( strSearch2 == "" ) && ( strSearch != "" ) )
 				{
-					restURL = Rest.getProperty() + "/transaction/gettransactionsdetail?deviceId="+ strSearch;
+					restURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail?deviceId="+ strSearch;
 				} else 
 				{
-					restURL = Rest.getProperty() + "/transaction/gettransactionsdetail";
+					restURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail";
 				}
 				
 				httpAPICaller = new HttpAPICaller();
@@ -192,14 +192,14 @@ public class TransactionController extends HttpServlet {
 				transaction.setTransactionStatusId(transactionStatusId);
 				transaction.setUserId(userId);
 				
-				String restURL = Rest.getProperty() + "/transaction/addtransaction";
+				String restURL = BackendConstants.SERVICEURL + "/transaction/addtransaction";
 
 				transactionRepoDAO = new TransactionRepoDAOImpl();
 				strResponse = transactionRepoDAO.addTransaction(transaction, restURL);
 				out.print(strResponse);
 				
 				
-				String strURL = Rest.getProperty() + "/transaction/gettransactionsdetail";
+				String strURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -218,7 +218,7 @@ public class TransactionController extends HttpServlet {
 			} else if (actionType.equals("loadList")) {
 				
 						
-				String strURL = Rest.getProperty() + "/device/getdevices";
+				String strURL = BackendConstants.SERVICEURL + "/device/getdevices";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -228,7 +228,7 @@ public class TransactionController extends HttpServlet {
 				deviceList = deviceRepoDAO.getDeviceList(line, "Device");
 
 				
-				String strURL2 = Rest.getProperty() + "/transactionstatus/gettransactionstatus";
+				String strURL2 = BackendConstants.SERVICEURL + "/transactionstatus/gettransactionstatus";
 				httpAPICaller = new HttpAPICaller();
 				String line2 = httpAPICaller.getRequest(strURL2);
 
@@ -271,7 +271,7 @@ public class TransactionController extends HttpServlet {
 
 				String strDltRadio = request.getParameter("deleteTransaction");
 
-				String restURL = Rest.getProperty() + "/transaction/deletetransaction/"+ strDltRadio;
+				String restURL = BackendConstants.SERVICEURL + "/transaction/deletetransaction/"+ strDltRadio;
 		
 				transactionRepoDAO = new TransactionRepoDAOImpl();
 				strResponse = ((TransactionRepoDAOImpl) transactionRepoDAO).deleteTransaction(restURL);
@@ -291,7 +291,7 @@ public class TransactionController extends HttpServlet {
 
 				String strBtnEdit = request.getParameter("editTransaction");
 
-				String restURL = Rest.getProperty() + "/transaction/gettransaction/"+ strBtnEdit;
+				String restURL = BackendConstants.SERVICEURL + "/transaction/gettransaction/"+ strBtnEdit;
 				
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -338,7 +338,7 @@ public class TransactionController extends HttpServlet {
 				transaction.setTransactionStatusId(transactionStatusId);
 				transaction.setUserId(userId);
 
-				String restURL = Rest.getProperty() + "/transaction/updatetransaction/"+ strID;
+				String restURL = BackendConstants.SERVICEURL + "/transaction/updatetransaction/"+ strID;
 
 				transactionRepoDAO = new TransactionRepoDAOImpl();
 				strResponse = ((TransactionRepoDAOImpl) transactionRepoDAO).updateTransaction(transaction, restURL);
@@ -393,7 +393,7 @@ public class TransactionController extends HttpServlet {
 		LinkedList<Transaction> transactionList = new LinkedList<Transaction>();
 		try {
 
-			String strURL = Rest.getProperty() + "/transaction/gettransactionsdetail";
+			String strURL = BackendConstants.SERVICEURL + "/transaction/gettransactionsdetail";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 
