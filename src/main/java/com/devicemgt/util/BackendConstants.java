@@ -10,4 +10,5 @@ public interface BackendConstants {
 	String UPDATE = "update";
 	String DELETE = "delete";
 	String DEVICELIST = "deviceList";
+	String USERLIST= "userlist";
 }

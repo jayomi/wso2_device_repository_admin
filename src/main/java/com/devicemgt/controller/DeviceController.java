@@ -18,6 +18,7 @@ import com.devicemgt.dao.HttpAPICaller;
 import com.devicemgt.model.Device;
 import com.devicemgt.util.BackendConstants;
 import com.devicemgt.util.FrontConstants;
+import com.devicemgt.util.Rest;
 
 /**
  * Servlet implementation class DeviceController
@@ -57,7 +58,6 @@ public class DeviceController extends HttpServlet {
 
 		String actionType = (String) request.getSession(false).getAttribute(
 				"actionType");
-		// getDvices , getSearch
 
 		RequestDispatcher requestDispatcher = null;
 
@@ -75,7 +75,7 @@ public class DeviceController extends HttpServlet {
 			actionType = "updateDevice";
 		}
 
-		if ((actionType.equals("addDevice"))
+		if ((request.getParameter("addDevice") != null)
 				|| (actionType.equals("updateDevice"))) {
 
 			String strNoDescription = "No Description";
@@ -83,7 +83,6 @@ public class DeviceController extends HttpServlet {
 			strDescription = request.getParameter("description");
 			strStatus = request.getParameter("status");
 			strType = request.getParameter("type");
-			// strOwner = request.getParameter("owner");
 
 			if (strName == null || strName.length() == 0) {
 				isValidated = false;
@@ -111,16 +110,6 @@ public class DeviceController extends HttpServlet {
 
 			if (actionType.equals("getDvices")) {
 
-				// String strURL =
-				// "http://127.0.0.1:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/searchdevice";
-				// httpAPICaller = new HttpAPICaller();
-				// String line = httpAPICaller.getRequest(strURL);
-				//
-				// System.out.println(line);
-				// deviceRepoDAO = new DeviceRepoDAOImpl();
-				// LinkedList<Device> deviceList = deviceRepoDAO.getDeviceList(
-				// line, "Device");
-
 				LinkedList<Device> deviceList = getDeviceFromDB(request,
 						response);
 				HttpSession session = request.getSession();
@@ -132,38 +121,35 @@ public class DeviceController extends HttpServlet {
 
 			} else if (actionType.equals("getSearch")) {
 
-//				String strSearch = request.getParameter("dId");
-//				System.out.println(strSearch);
-
-				String strSelectId = request.getParameter("dID");
+//				String strSelectId = request.getParameter("dID");
 				String strSelectName = request.getParameter("dNAME");
+				strSelectName = strSelectName.replace(" ", "%20");
 
 				String options = null;
 				boolean firstPara = false;
-				if (!strSelectId.equals("Not Selected")) {
-
-					options = "?deviceId=" + strSelectId;
-					firstPara = true;
-
-				}
-				if (!strSelectName.equals("Not Selected")) {
+//				if (!strSelectId.equals("Not Selected")) {
+//
+//					options = "?deviceId=" + strSelectId;
+//					firstPara = true;
+//
+//				}
+				if (!strSelectName.equals("")) {
 
 					if (firstPara == false) {
 						options = "?deviceName=" + strSelectName;
 						firstPara = true;
 					} else {
-						options = options + "&d_name=" + strSelectName ;
+						options = options + "&d_name=" + strSelectName;
 					}
 
 				}
-				
-				String restURL = "http://192.168.43.204:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/searchdevice";
 
-				if(firstPara){
-					restURL=restURL+options;
+				String restURL = Rest.getProperty() +"/searchdevice";
+
+				if (firstPara) {
+					restURL = restURL + options;
 				}
-				
-			
+
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
 
@@ -174,6 +160,7 @@ public class DeviceController extends HttpServlet {
 				HttpSession session = request.getSession();
 
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("getdevice.jsp");
 				requestDispatcher.forward(request, response);
@@ -190,27 +177,28 @@ public class DeviceController extends HttpServlet {
 				device.setStatusId(Integer.parseInt(strStatus));
 				device.setTypeId(Integer.parseInt(strType));
 
-				String restURL = "http://192.168.43.204:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/device/adddevice";
+				String restURL = Rest.getProperty() +"/device/adddevice";
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
 				strResponse = deviceRepoDAO.addDevice(device, restURL);
 
-				HttpSession session = request.getSession();
-				session.setAttribute(BackendConstants.ERROR_MESSAGE,
+				request.setAttribute(BackendConstants.ERROR_MESSAGE,
 						strResponse);
+				HttpSession session = request.getSession();
+
 				requestDispatcher = request
 						.getRequestDispatcher("add_device.jsp");
 				requestDispatcher.forward(request, response);
-
-				// out.print(strResponse);
 
 			} else if (actionType.equals("getDvicesOnLoad")) {
 
 				LinkedList<Device> deviceList = getDeviceFromDB(request,
 						response);
+
 				HttpSession session = request.getSession();
 
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("updateordelete_device.jsp");
 				requestDispatcher.forward(request, response);
@@ -220,21 +208,21 @@ public class DeviceController extends HttpServlet {
 				String strDltRadio = request.getParameter("deleteDevice");
 				System.out.println(strDltRadio);
 
-				String restURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/device/deletedevice/"
+				String restURL = Rest.getProperty() +"/device/deletedevice/"
 						+ strDltRadio;
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
 				strResponse = deviceRepoDAO.deleteDevice(restURL);
 
-				// /////
-
 				LinkedList<Device> deviceList = getDeviceFromDB(request,
 						response);
-				HttpSession session = request.getSession();
 
 				request.setAttribute(BackendConstants.ERROR_MESSAGE,
 						strResponse);
+				HttpSession session = request.getSession();
+
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("updateordelete_device.jsp");
 				requestDispatcher.forward(request, response);
@@ -244,7 +232,7 @@ public class DeviceController extends HttpServlet {
 				String strBtnEdit = request.getParameter("editDevice");
 				System.out.println(strBtnEdit);
 
-				String restURL = "http://192.168.43.204:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/searchdevice?deviceId="
+				String restURL = Rest.getProperty() +"/searchdevice?deviceId="
 						+ strBtnEdit;
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
@@ -256,11 +244,10 @@ public class DeviceController extends HttpServlet {
 				HttpSession session = request.getSession();
 
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("edit_device.jsp");
 				requestDispatcher.forward(request, response);
-
-//				out.print(strResponse);
 
 			} else if (actionType.equals("updateDevice")) {
 
@@ -275,34 +262,34 @@ public class DeviceController extends HttpServlet {
 
 				System.out.println(device);
 
-				String restURL = "http://192.168.43.204:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/device/updatedevice/"
+				String restURL = Rest.getProperty() +"/device/updatedevice/"
 						+ strID;
 
 				deviceRepoDAO = new DeviceRepoDAOImpl();
 				strResponse = deviceRepoDAO.updateDevice(device, restURL);
 
-				HttpSession session = request.getSession();
-				session.setAttribute(BackendConstants.ERROR_MESSAGE,
+				request.setAttribute(BackendConstants.ERROR_MESSAGE,
 						strResponse);
-
-				// //////////////
 
 				LinkedList<Device> deviceList = getDeviceFromDB(request,
 						response);
+				HttpSession session = request.getSession();
+
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("updateordelete_device.jsp");
 				requestDispatcher.forward(request, response);
 
 			} else if (actionType.equals("loadDevice")) {
 
-				
-
 				LinkedList<Device> deviceList = getDeviceFromDB(request,
 						response);
+
 				HttpSession session = request.getSession();
 
 				session.setAttribute("DeviceList", deviceList);
+
 				requestDispatcher = request
 						.getRequestDispatcher("get_device.jsp");
 				requestDispatcher.forward(request, response);
@@ -333,7 +320,7 @@ public class DeviceController extends HttpServlet {
 		LinkedList<Device> deviceList = new LinkedList<Device>();
 		try {
 
-			String strURL = "http://192.168.43.204:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/searchdevice";
+			String strURL = Rest.getProperty() +"/searchdevice";
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(strURL);
 

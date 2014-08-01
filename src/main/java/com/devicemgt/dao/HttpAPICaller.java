@@ -26,6 +26,7 @@ public class HttpAPICaller {
 
 			// String line = "";
 			strResponse = rd.readLine();
+			System.out.println("Get Req :"+strResponse);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,6 +52,7 @@ public class HttpAPICaller {
 					httpResponse.getEntity().getContent()));
 
 			strResponse = rd.readLine();
+			System.out.println("Post Req :"+strResponse);
 			
 
 		} catch (Exception e) {
@@ -81,6 +83,7 @@ public class HttpAPICaller {
 					httpResponse.getEntity().getContent()));
 
 			strResponse = rd.readLine();
+			System.out.println("Put Req :"+strResponse);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,6 +106,7 @@ public class HttpAPICaller {
 
 			// String line = "";
 			strResponse = rd.readLine();
+			System.out.println("Delete Req :"+strResponse);
 
 		} catch (Exception e) {
 			e.printStackTrace();

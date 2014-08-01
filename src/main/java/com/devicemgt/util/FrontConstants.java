@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.devicemgt.util;
 
-/**
- * 
- * @author Esoft
- */
 public interface FrontConstants {
 
 	String PASSWORD_REQUIRED = "Password Required";

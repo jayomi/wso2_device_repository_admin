@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 import org.json.JSONObject;
 
-import com.devicemgt.model.Device;
 import com.devicemgt.model.User;
+import com.devicemgt.util.PasswordEncript;
 
 public class UserDAOImpl implements UserDAO {
 
@@ -13,9 +13,12 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public String addUser(User user, String restURL) {
+		
+		String strPassWord=PasswordEncript.getEncriptedPassword(user.getPasssword());
+		
 		String payloadBody = "{user: {description: " + user.getDescription()
 				+ ",email: " + user.getEmail() + ",password: "
-				+ user.getPasssword() + ",telNo: " + user.getTelNo()
+				+ strPassWord + ",telNo: " + user.getTelNo()
 				+ ",userFname: " + user.getUserFname() + ",userLname: "
 				+ user.getUserLname() + ",username: " + user.getUsername()
 				+ "}}";
@@ -47,7 +50,7 @@ public class UserDAOImpl implements UserDAO {
 				jObject.put(rootElement, jsonObject.getJSONArray(rootElement)
 						.get(x));
 
-				Device tempDevice = new Device();
+				
 				User user = new User();
 
 				// user.setDescription(jObject.getJSONObject(rootElement)
@@ -83,6 +86,7 @@ public class UserDAOImpl implements UserDAO {
 
 		} catch (Exception e) {
 			System.out.println(e.toString());
+			e.printStackTrace();
 		} finally {
 			return userList;
 		}
@@ -108,12 +112,11 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public String updateUser(User arg0, String arg1) {
-		String payloadBody = "{user: {description: " + arg0.getDescription()
-				+ ",email: " + arg0.getEmail() + ",password: "
-				+ arg0.getPasssword() + ",telNo: " + arg0.getTelNo()
+		String payloadBody = "{user: {email: " + arg0.getEmail() + ",userId: "
+				+ arg0.getUserId() + ",telNo: " + arg0.getTelNo()
 				+ ",userFname: " + arg0.getUserFname() + ",userLname: "
 				+ arg0.getUserLname() + ",username: " + arg0.getUsername()
-				+ "}}";
+				+ ",role: " + arg0.getRole()+ "}}";
 
 		httpAPICaller = new HttpAPICaller();
 		String strResponse = httpAPICaller.putRequest(arg1, payloadBody);

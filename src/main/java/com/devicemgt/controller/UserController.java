@@ -20,6 +20,8 @@ import com.devicemgt.model.Device;
 import com.devicemgt.model.User;
 import com.devicemgt.util.BackendConstants;
 import com.devicemgt.util.FrontConstants;
+import com.devicemgt.util.PasswordEncript;
+import com.devicemgt.util.Rest;
 
 /**
  * Servlet implementation class UserController
@@ -52,13 +54,13 @@ public class UserController extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		RequestDispatcher requestDispatcher = null;
 
-		String fname= null;
-		String lname= null;
+		String fname = null;
+		String lname = null;
 		String userName = null;
-		String pass= null;
-		String compass= null;
-		String email= null;
-		String tele= null;
+		String pass = null;
+		String compass = null;
+		String email = null;
+		String tele = null;
 		String description = null;
 
 		String strResponse = "";
@@ -66,9 +68,9 @@ public class UserController extends HttpServlet {
 		String actionType = (String) request.getSession(false).getAttribute(
 				"actionType");
 		System.out.println(actionType);
-		
+
 		try {
-			
+
 			if (request.getParameter("deleteBtn") != null) {
 				actionType = "deleteDevice";
 			} else if (request.getParameter("editBtn") != null) {
@@ -76,19 +78,17 @@ public class UserController extends HttpServlet {
 			} else if (request.getParameter("updateBtn") != null) {
 				actionType = "updateDevice";
 			}
-			
-			
 
 			if ((request.getParameter("userRegister") != null)) {
 
-				 fname = request.getParameter("firstName");
-				 lname = request.getParameter("lastName");
-				 userName = request.getParameter("userName");
-				 pass = request.getParameter("password");
-				 compass = request.getParameter("confirmPassword");
-				 email = request.getParameter("email");
-				 tele = request.getParameter("telephone");
-				 description = request.getParameter("description");
+				fname = request.getParameter("firstName");
+				lname = request.getParameter("lastName");
+				userName = request.getParameter("userName");
+				pass = request.getParameter("password");
+				compass = request.getParameter("confirmPassword");
+				email = request.getParameter("email");
+				tele = request.getParameter("telephone");
+				description = request.getParameter("description");
 				boolean isValidated = true;
 
 				if (fname == null || fname.length() == 0) {
@@ -129,6 +129,8 @@ public class UserController extends HttpServlet {
 									+ FrontConstants.REQUIRED);
 				}
 
+				String passWord = PasswordEncript.getEncriptedPassword(pass);
+				System.out.println(passWord);
 				user = new User();
 				user.setDescription(description);
 				user.setEmail(email);
@@ -138,23 +140,22 @@ public class UserController extends HttpServlet {
 				user.setUserLname(lname);
 				user.setUsername(userName);
 
-				String restURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/adduser";
+				String restURL = Rest.getProperty() +"/user/adduser";
 
 				userDAO = new UserDAOImpl();
 
 				strResponse = userDAO.addUser(user, restURL);
 
-				HttpSession session = request.getSession();
-				session.setAttribute(BackendConstants.ERROR_MESSAGE,
+				request.setAttribute(BackendConstants.ERROR_MESSAGE,
 						strResponse);
 				requestDispatcher = request
-						.getRequestDispatcher("user_register.jsp");
+						.getRequestDispatcher("index.jsp");
 				requestDispatcher.forward(request, response);
 
 			}
 			if (actionType.equals("getUsersOnLoad")) {
 
-				String strURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/getusers";
+				String strURL = Rest.getProperty() +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -170,22 +171,38 @@ public class UserController extends HttpServlet {
 						.getRequestDispatcher("get_user.jsp");
 				requestDispatcher.forward(request, response);
 			}
+			
+			if (actionType.equals("getMyProfile")) {
 
+				String strURL = Rest.getProperty() +"/user/getusers";
+				httpAPICaller = new HttpAPICaller();
+				String line = httpAPICaller.getRequest(strURL);
+
+				System.out.println(line);
+
+				userDAO = new UserDAOImpl();
+
+				LinkedList<User> userList = userDAO.getUserList(line, "user");
+				HttpSession session = request.getSession();
+
+				session.setAttribute("UserList", userList);
+				requestDispatcher = request
+						.getRequestDispatcher("getMyProfile.jsp");
+				requestDispatcher.forward(request, response);
+			}
+			
 			if (actionType.equals("deleteDevice")) {
-
-				// http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/deleteuser/9
 
 				String strDltRadio = request.getParameter("deleteUser");
 				System.out.println(strDltRadio);
 
-				String restURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/deleteuser/"
+				String restURL = Rest.getProperty() +"/user/deleteuser/"
 						+ strDltRadio;
 
 				userDAO = new UserDAOImpl();
 				strResponse = userDAO.deleteUser(restURL);
 
-				// //////////////
-				String strURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/getusers";
+				String strURL = Rest.getProperty() +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
 
@@ -209,9 +226,8 @@ public class UserController extends HttpServlet {
 				String strBtnEdit = request.getParameter("editUser");
 				System.out.println(strBtnEdit);
 
-				String restURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/getusers?userId="
+				String restURL = Rest.getProperty() +"/user/getusers?userId="
 						+ strBtnEdit;
-//				String strURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(restURL);
 
@@ -220,6 +236,7 @@ public class UserController extends HttpServlet {
 				userDAO = new UserDAOImpl();
 
 				LinkedList<User> userList = userDAO.getUserList(line, "user");
+
 				HttpSession session = request.getSession();
 
 				session.setAttribute("UserList", userList);
@@ -229,42 +246,42 @@ public class UserController extends HttpServlet {
 
 			}
 			if (actionType.equals("updateDevice")) {
-				
+
 				fname = request.getParameter("firstName");
-				 lname = request.getParameter("lastName");
-				 userName = request.getParameter("userName");
-				 pass = request.getParameter("password");
-				 compass = request.getParameter("confirmPassword");
-				 email = request.getParameter("email");
-				 tele = request.getParameter("telephone");
-				 description = request.getParameter("description");
+				lname = request.getParameter("lastName");
+				userName = request.getParameter("userName");
+				
+				compass = request.getParameter("confirmPassword");
+				email = request.getParameter("email");
+				tele = request.getParameter("telephone");
+				description = request.getParameter("description");
+				String role=request.getParameter("role");
 
 				String strID = request.getParameter("uID");
 				System.out.println(strID);
 
 				user = new User();
-				user.setDescription(description);
+				user.setUserId(strID);
 				user.setEmail(email);
-				user.setPasssword(pass);
 				user.setTelNo(tele);
 				user.setUserFname(fname);
 				user.setUserLname(lname);
 				user.setUsername(userName);
+				user.setRole(role);
 
 				System.out.println(user);
 
-				String restURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/device/updatedevice/"
+				String restURL = Rest.getProperty() +"/user/updateuser/"
 						+ strID;
-				
+
 				userDAO = new UserDAOImpl();
 				strResponse = userDAO.updateUser(user, restURL);
+				System.out.println(strResponse);
 				
-				/////////////////////
-				
-				String strURL = "http://192.168.43.239:9763/DeviceMgt_Service-1.0.0/services/device_mgt_services/user/getusers";
+				String strURL = Rest.getProperty() +"/user/getusers";
 				httpAPICaller = new HttpAPICaller();
 				String line = httpAPICaller.getRequest(strURL);
-				
+
 				LinkedList<User> userList = userDAO.getUserList(line, "user");
 				HttpSession session = request.getSession();
 				request.setAttribute(BackendConstants.ERROR_MESSAGE,

@@ -11,29 +11,32 @@ public class DeviceType
     String deviceTypeName;
     String deviceTypeDescription;
 
-    @XmlElement(name="deviceTypeId")
+    
     public String getDeviceTypeId() {
         return deviceTypeId;
     }
 
+    @XmlElement(name="deviceTypeId")
     public void setDeviceTypeId(String deviceTypeId) {
         this.deviceTypeId = deviceTypeId;
     }
 
-    @XmlElement(name="deviceTypeName")
+    
     public String getDeviceTypeName() {
         return deviceTypeName;
     }
 
+    @XmlElement(name="deviceTypeName")
     public void setDeviceTypeName(String deviceTypeName) {
         this.deviceTypeName = deviceTypeName;
     }
 
-    @XmlElement(name="deviceTypeDescription")
+  
     public String getDeviceTypeDescription() {
         return deviceTypeDescription;
     }
 
+    @XmlElement(name="deviceTypeDescription")
     public void setDeviceTypeDescription(String deviceTypeDescription) {
      this.deviceTypeDescription=deviceTypeDescription;
     }

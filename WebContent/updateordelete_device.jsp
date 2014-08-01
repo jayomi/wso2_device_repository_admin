@@ -33,55 +33,85 @@
 </head>
 <body id="page1">
 
+	<%
+		String username=null;
+		String role="user";
+		
+		Cookie cookie = null;
+		   Cookie[] cookies = null;
+		   cookies = request.getCookies();
+		   if( cookies != null ){
+			   for (int i = 0; i < cookies.length; i++){
+			         cookie = cookies[i];
+			         if(cookie.getName( ).equals("user_name")){
+			        	 username=cookie.getValue();
+			         }else if(cookie.getName( ).equals("user_role")){
+			        	 role=cookie.getValue();
+			         }
+			   }}
+		
+			   if(username!=null ){
+	%>
 
+	<table height="100" width="100%" border="0" cellspacing="1"
+		bgcolor="#474747">
+		<tr>
+			<td><font color="#fff">Welcome : <%=username%></font></td>
+		</tr>
+		<tr>
+			<td width="160" />
+			<td width="800"><img src="images/banner.png" width="600"
+				height="80" /></td>
+			<td width="130"><img src="images/wso2-logo.png" width="100"
+				height="40" /></td>
+		</tr>
+	</table>
 	<div id="maindiv">
-		<table width="900" height="80" border="0" cellspacing="1">
-			<tr>
-				<td width="130"><img src="images/wso2-logo.png" width="125"
-					height="50" /></td>
-				<td width="600">
-					<h1 align="left">
-						<font id="headerfont"> Device Repository </font>
-					</h1>
-				</td>
-			</tr>
-		</table>
-
+		
 		<nav>
 		<ul id="menu">
-			<li><a href="index.jsp"><span><span>Home</span></span></a></li>
+			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
 			<li><a href="about.jsp"><span><span>About</span></span></a></li>
 			<li><a>Device</a>
 				<ul>
 					<li><a href="add_device.jsp">Add Devices</a></li>
-					<li><a href="updateordelete_device.jsp">Edit Details</a></li>
-					<li><a href="get_device.jsp">Search</a></li>
-					<li><a href="updateordelete_device.jsp">Remove Device</a></li>
+					<li><a href="updateordelete_device.jsp">Alter Details</a></li>
+					<li><a href="get_device.jsp">View Device</a></li>
+					<li><a href="add_devicetype.jsp">Add Device Type</a></li>
+					<li><a href="getdevicetype.jsp">View Device Type</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Activity</a>
+			<li><a href="home.jsp">Activity</a>
 				<ul>
-					<li><a href="index.jsp">Lend</a></li>
-					<li><a href="register.jsp">Return</a></li>
-					<li><a href="index.jsp">Update Activity</a></li>
-					<li><a href="register.jsp">Delete Activity</a></li>
+					<li><a href="add_transaction.jsp">Lend</a></li>
+					<li><a href="get_transaction.jsp">View Activity</a></li>
+					<li><a href="updateordelete_transaction.jsp">Alter
+							Activity</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Administration</a>
+			<li><a href="home.jsp">Administration</a>
 				<ul>
-					<li><a href="index.jsp">My Information</a></li>
+					<li><a href="getMyProfile.jsp">My Information</a></li>
 					<li><a href="user_register.jsp">Add User</a></li>
 					<li><a href="get_user.jsp">Delete User</a></li>
 					<li><a href="get_user.jsp">Edit User</a></li>
+					<li><a href="add_transaction_status.jsp">Add Activity
+							Status</a></li>
+					<li><a href="get_transaction_status.jsp">View Activity
+							Status</a></li>
+					<li><a href="add_device_status.jsp">Add Device Status</a></li>
+					<li><a href="get_device_status.jsp">View Device Status</a></li>
+
 				</ul></li>
 
 		</ul>
 		</nav>
+		
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request
-      			.getAttribute(BackendConstants.ERROR_MESSAGE);
-      	if (errorMessage != null) {
-      		out.println("*" + errorMessage);
-      	}
+         			.getAttribute(BackendConstants.ERROR_MESSAGE);
+         	if (errorMessage != null) {
+         		out.println("*" + errorMessage);
+         	}
  %>
 			</font></b>
 		</center>
@@ -98,7 +128,7 @@
 				<center>
 					<h3>Delete Device</h3>
 				</center>
-				<form action="DeviceController" method="get">
+				<form action="DeviceController" method="post">
 					<table width="900" height="80" border="1" cellspacing="1">
 						<tr height="60"></tr>
 						<tr>
@@ -114,8 +144,8 @@
 						<%
 							if (deviceList != null) {
 
-												String actionType = "getDvicesOnLoad";
-												session.setAttribute("actionType", actionType);
+																								String actionType = "getDvicesOnLoad";
+																								session.setAttribute("actionType", actionType);
 						%>
 						<script type="text/javascript">
 							loadDevices();
@@ -137,21 +167,21 @@
 						</tr>
 						<%
 							}
-											} else {
+																							} else {
 
-												String actionType = "getDvicesOnLoad";
-													session.setAttribute("actionType", actionType);
+																								String actionType = "getDvicesOnLoad";
+																									session.setAttribute("actionType", actionType);
 						%>
 
 						<script type="text/javascript">
-						loadDevices();
+							loadDevices();
 						</script>
 
 
 						<%
 							response.setIntHeader("Refresh", 5);
 
-							}
+								}
 						%>
 
 
@@ -161,6 +191,14 @@
 					<input type="submit" name="editBtn" value="Edit" align="right">
 
 				</form>
+				<%
+					} else {
+						String url = "/";
+				%>
+				<jsp:forward page="<%=url%>" />
+				<%
+					}
+				%>
 			</div>
 		</div>
 

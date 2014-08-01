@@ -3,27 +3,27 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.wso2.af</groupId>
-  <artifactId>devicerepoadmin</artifactId>
+  <artifactId>devicerepository</artifactId>
   <version>default-SNAPSHOT</version>
   <packaging>war</packaging>
-  <name>devicerepoadmin</name>
-  <description>devicerepoadmin</description>
+  <name>devicerepository</name>
+  <description>devicerepository</description>
   <properties>
     <CApp.type>web/application</CApp.type>
     <carbon.platform.version>4.2.0</carbon.platform.version>
     <cxf.version>2.6.1</cxf.version>
   </properties>
   <dependencies>
+   <dependency>
+	<groupId>org.json</groupId>
+	<artifactId>json</artifactId>
+	<version>20140107</version>
+</dependency>
   <dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.4</version>
 		</dependency>
-  <dependency>
-	<groupId>org.json</groupId>
-	<artifactId>json</artifactId>
-	<version>20140107</version>
-</dependency>
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-web-api</artifactId>

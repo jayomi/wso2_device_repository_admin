@@ -5,47 +5,65 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link href="mycss.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
+	<table height="100" width="100%" border="0" cellspacing="1"
+		bgcolor="#474747">
+		<tr>
+			<td width="160" />
+			<td width="800"><img src="images/banner.png" width="600"
+				height="80" /></td>
+			<td width="130"><img src="images/wso2-logo.png" width="100"
+				height="40" /></td>
+		</tr>
+	</table>
 	<div id="maindiv">
-		<table width="1024" height="152" border="0" cellspacing="1">
-			<tr>
-				<td width="241"><img src="wso2-home-logo.png" width="240"
-					height="80" /></td>
-				<td width="770"><h1 align="center">
-						<font color="white"> <marquee behavior="alternate"
-								truespeed="truespeed" scrollamount="5"> WSO2 Device
-								Management System </marquee> <br> WSO2 Inc Sri Lanka
-						</font>
-					</h1></td>
+		<table width="900" height="80" border="0" cellspacing="1">
+
+
+			<td width="130"><img src="images/wso2-logo.png" width="125"
+				height="50" /></td>
+			<td width="600">
+				<h1 align="left">
+					<font id="headerfont"> Device Repository </font>
+				</h1>
+			</td>
 			</tr>
 		</table>
 
-		<<nav>
+		<nav>
 		<ul id="menu">
-			<li><a href="index.jsp"><span><span>Home</span></span></a></li>
+			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
 			<li><a href="about.jsp"><span><span>About</span></span></a></li>
 			<li><a>Device</a>
 				<ul>
 					<li><a href="add_device.jsp">Add Devices</a></li>
-					<li><a href="get_device.jsp">Edit Details</a></li>
-					<li><a href="get_device.jsp">Search</a></li>
-					<li><a href="delete_device.jsp">Remove Device</a></li>
+					<li><a href="updateordelete_device.jsp">Alter Details</a></li>
+					<li><a href="get_device.jsp">View Device</a></li>
+					<li><a href="add_devicetype.jsp">Add Device Type</a></li>
+					<li><a href="getdevicetype.jsp">View Device Type</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Activity</a>
+			<li><a href="home.jsp">Activity</a>
 				<ul>
-					<li><a href="index.jsp">Lend</a></li>
-					<li><a href="register.jsp">Return</a></li>
-					<li><a href="index.jsp">Update Activity</a></li>
-					<li><a href="register.jsp">Delete Activity</a></li>
+					<li><a href="add_transaction.jsp">Lend</a></li>
+					<li><a href="get_transaction.jsp">View Activity</a></li>
+					<li><a href="updateordelete_transaction.jsp">Alter
+							Activity</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Administration</a>
+			<li><a href="home.jsp">Administration</a>
 				<ul>
-					<li><a href="index.jsp">My Information</a></li>
-					<li><a href="register.jsp">Add User</a></li>
-					<li><a href="index.jsp">Delete User</a></li>
-					<li><a href="register.jsp">Edit User</a></li>
+					<li><a href="getMyProfile.jsp">My Information</a></li>
+					<li><a href="user_register.jsp">Add User</a></li>
+					<li><a href="get_user.jsp">Delete User</a></li>
+					<li><a href="get_user.jsp">Edit User</a></li>
+					<li><a href="add_transaction_status.jsp">Add Activity
+							Status</a></li>
+					<li><a href="get_transaction_status.jsp">View Activity
+							Status</a></li>
+					<li><a href="add_device_status.jsp">Add Device Status</a></li>
+					<li><a href="get_device_status.jsp">View Device Status</a></li>
+
 				</ul></li>
 
 		</ul>

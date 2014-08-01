@@ -13,45 +13,73 @@
 </head>
 <body id="page1">
 
-	<!-- onload="loadXMLDoc()" -->
+	<%
+		String username = null;
+		String role = "user";
 
+		Cookie cookie = null;
+		Cookie[] cookies = null;
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				cookie = cookies[i];
+				if (cookie.getName().equals("user_name")) {
+					username = cookie.getValue();
+				} else if (cookie.getName().equals("user_role")) {
+					role = cookie.getValue();
+				}
+			}
+		}
+
+		if (username != null) {
+	%>
+	<table height="100" width="100%" border="0" cellspacing="1"
+		bgcolor="#474747">
+		<tr>
+			<td><font color="#fff">Welcome : <%=username%></font></td>
+		</tr>
+		<tr>
+			<td width="160" />
+			<td width="800"><img src="images/banner.png" width="600"
+				height="80" /></td>
+			<td width="130"><img src="images/wso2-logo.png" width="100"
+				height="40" /></td>
+		</tr>
+	</table>
 	<div id="maindiv">
-		<table width="900" height="80" border="0" cellspacing="1">
-			<tr>
-				<td width="130"><img src="images/wso2-logo.png" width="125"
-					height="50" /></td>
-				<td width="600">
-					<h1 align="left">
-						<font id="headerfont"> Device Repository </font>
-					</h1>
-				</td>
-			</tr>
-		</table>
-
+		
 		<nav>
 		<ul id="menu">
-			<li><a href="index.jsp"><span><span>Home</span></span></a></li>
+			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
 			<li><a href="about.jsp"><span><span>About</span></span></a></li>
 			<li><a>Device</a>
 				<ul>
 					<li><a href="add_device.jsp">Add Devices</a></li>
-					<li><a href="updateordelete_device.jsp">Edit Details</a></li>
-					<li><a href="get_device.jsp">Search</a></li>
-					<li><a href="updateordelete_device.jsp">Remove Device</a></li>
+					<li><a href="updateordelete_device.jsp">Alter Details</a></li>
+					<li><a href="get_device.jsp">View Device</a></li>
+					<li><a href="add_devicetype.jsp">Add Device Type</a></li>
+					<li><a href="getdevicetype.jsp">View Device Type</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Activity</a>
+			<li><a href="home.jsp">Activity</a>
 				<ul>
-					<li><a href="index.jsp">Lend</a></li>
-					<li><a href="register.jsp">Return</a></li>
-					<li><a href="index.jsp">Update Activity</a></li>
-					<li><a href="register.jsp">Delete Activity</a></li>
+					<li><a href="add_transaction.jsp">Lend</a></li>
+					<li><a href="get_transaction.jsp">View Activity</a></li>
+					<li><a href="updateordelete_transaction.jsp">Alter
+							Activity</a></li>
 				</ul></li>
-			<li><a href="index.jsp">Administration</a>
+			<li><a href="home.jsp">Administration</a>
 				<ul>
-					<li><a href="index.jsp">My Information</a></li>
+					<li><a href="getMyProfile.jsp">My Information</a></li>
 					<li><a href="user_register.jsp">Add User</a></li>
 					<li><a href="get_user.jsp">Delete User</a></li>
 					<li><a href="get_user.jsp">Edit User</a></li>
+					<li><a href="add_transaction_status.jsp">Add Activity
+							Status</a></li>
+					<li><a href="get_transaction_status.jsp">View Activity
+							Status</a></li>
+					<li><a href="add_device_status.jsp">Add Device Status</a></li>
+					<li><a href="get_device_status.jsp">View Device Status</a></li>
+
 				</ul></li>
 
 		</ul>
@@ -60,94 +88,94 @@
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request
-  			.getAttribute(BackendConstants.ERROR_MESSAGE);
-  	if (errorMessage != null) {
-  		out.println("*" + errorMessage);
-  	}
+ 				.getAttribute(BackendConstants.ERROR_MESSAGE);
+ 		if (errorMessage != null) {
+ 			out.println("*" + errorMessage);
+ 		}
  %>
 			</font></b>
 		</center>
 		<%
 			LinkedList<User> deviceList = (LinkedList<User>) session
-				.getAttribute("UserList");
+						.getAttribute("UserList");
 		%>
 
 		<div id="frame">
 			<div id="content">
 
-				<form action="UserController" method="get">
-					<table width="900" height="80" border="1" cellspacing="1">
-						<tr height="60"></tr>
+				<form action="UserController" method="post">
+					<center>
+						<table border="0" cellspacing="1">
+							<tr height="60"></tr>
 
+							<%
+								if (deviceList != null) {
 
+										for (int y = 0; y < deviceList.size(); y++) {
+							%>
+							<tr>
+								<td>User Id</td>
+								<td>: <input type="text" name="uID"
+									value="<%=deviceList.get(y).getUserId()%>" /></td>
+							</tr>
+							<tr>
+								<td>User FirstName</td>
+								<td>: <input type="text" name="firstName"
+									value="<%=deviceList.get(y).getUserFname()%>" /></td>
+							</tr>
+							<tr>
+								<td>User LastName</td>
+								<td>: <input type="text" name="lastName"
+									value="<%=deviceList.get(y).getUserLname()%>" /></td>
 
-						<!-- <tr>
-							<td width="20">CONTENT in the below tD
-							<td width="250"><img src="images/repo.jpg" width="210"
-								height="210" /></td>
-							<td width="600">
-								<h3 align="left">Features</h3> <br /> <input type="text"
-								name="dId" placeholder="Enter Device Name" /> <br /> <input
-								type="submit" value="Get All Device" name="getDvices" /> <br />
-								<input type="submit" value="Search" name="getSearch" /> <br />
+							</tr>
+							<tr>
+								<td>UserName</td>
+								<td>: <input type="text" name="userName"
+									value="<%=deviceList.get(y).getUsername()%>" /></td>
 
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td>: <input type="text" name="email"
+									value="<%=deviceList.get(y).getEmail()%>" /></td>
 
-							</td>
-							<td width="20">
-						</tr> -->
+							</tr>
+							<tr>
+								<td>Tele #</td>
+								<td>: <input type="text" name="telephone"
+									value="<%=deviceList.get(y).getTelNo()%>" /></td>
 
-						<tr>
-							<th>User Id</th>
-							<th>User FirstName</th>
-							<th>User LastName</th>
-							<th>UserName</th>
-							<th>Email</th>
-							<th>Tele #</th>
-							<!-- <th>Description</th> -->
-							<th>Delete</th>
-							<th>Edit</th>
+							</tr>
+							<tr>
+								<td>Role</td>
+								<td>: <input type="text" name="role"
+									value="<%=deviceList.get(y).getRole()%>" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td align="right"><input type="submit" name="updateBtn"
+									value="Update"></td>
+							</tr>
+							<%
+								}
+									}
+							%>
 
-						</tr>
-						<%
-							if (deviceList != null) {
+							<tr height="60"></tr>
+						</table>
 
-																/* String actionType = "getUsersOnLoad";
-																session.setAttribute("actionType", actionType); */
-						%>
-						<!-- <script type="text/javascript">
-							loadUsers();
-						</script> -->
-						<%
-							for (int y = 0; y < deviceList.size(); y++) {
-						%>
-						<tr>
-
-
-
-							<td align="center"><input type="text" name="uID"
-								value="<%=deviceList.get(y).getUserId()%>" /></td>
-							<td align="center"><input type="text" name="firstName"
-								value="<%=deviceList.get(y).getUserFname()%>" /></td>
-							<td align="center"><input type="text" name="lastName"
-								value="<%=deviceList.get(y).getUserLname()%>" /></td>
-							<td align="center"><input type="text" name="userName"
-								value="<%=deviceList.get(y).getUsername()%>" /></td>
-							<td align="center"><input type="text" name="email"
-								value="<%=deviceList.get(y).getEmail()%>" /></td>
-							<td align="center"><input type="text" name="telephone"
-								value="<%=deviceList.get(y).getTelNo()%>" /></td>
-
-
-						</tr>
-						<%
-							}
-															}
-						%>
-
-						<tr height="60"></tr>
-					</table>
-					<input type="submit" name="updateBtn" value="Update">
+					</center>
 				</form>
+
+				<%
+					} else {
+						String url = "/";
+				%>
+				<jsp:forward page="<%=url%>" />
+				<%
+					}
+				%>
 			</div>
 		</div>
 

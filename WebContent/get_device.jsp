@@ -30,184 +30,168 @@
 </script>
 
 </head>
-<body id="page1">
+<body id="page1" onload="loadDevices()" />
 
-	<!-- onload="loadXMLDoc()" -->
+<%
+	String username = null;
+	String role = "user";
 
-	<div id="maindiv">
-		<table width="900" height="80" border="0" cellspacing="1">
-			<tr>
-				<td width="130"><img src="images/wso2-logo.png" width="125"
-					height="50" /></td>
-				<td width="600">
-					<h1 align="left">
-						<font id="headerfont"> Device Repository </font>
-					</h1>
-				</td>
-			</tr>
-		</table>
+	Cookie cookie = null;
+	Cookie[] cookies = null;
+	cookies = request.getCookies();
+	if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
+			cookie = cookies[i];
+			if (cookie.getName().equals("user_name")) {
+				username = cookie.getValue();
+			} else if (cookie.getName().equals("user_role")) {
+				role = cookie.getValue();
+			}
+		}
+	}
 
-		<nav>
-		<ul id="menu">
-			<li><a href="index.jsp"><span><span>Home</span></span></a></li>
-			<li><a href="about.jsp"><span><span>About</span></span></a></li>
-			<li><a>Device</a>
-				<ul>
-					<li><a href="add_device.jsp">Add Devices</a></li>
-					<li><a href="updateordelete_device.jsp">Edit Details</a></li>
-					<li><a href="get_device.jsp">Search</a></li>
-					<li><a href="updateordelete_device.jsp">Remove Device</a></li>
-				</ul></li>
-			<li><a href="index.jsp">Activity</a>
-				<ul>
-					<li><a href="index.jsp">Lend</a></li>
-					<li><a href="register.jsp">Return</a></li>
-					<li><a href="index.jsp">Update Activity</a></li>
-					<li><a href="register.jsp">Delete Activity</a></li>
-				</ul></li>
-			<li><a href="index.jsp">Administration</a>
-				<ul>
-					<li><a href="index.jsp">My Information</a></li>
-					<li><a href="user_register.jsp">Add User</a></li>
-					<li><a href="get_user.jsp">Delete User</a></li>
-					<li><a href="get_user.jsp">Edit User</a></li>
-				</ul></li>
+	if (username != null) {
+%>
 
-		</ul>
-		</nav>
-		<center style="Background-color: #ccff00;">
-			<b><font color="red"> <%
+<%
+	String actionType = "loadDevice";
+		session.setAttribute("actionType", actionType);
+%>
+<table height="100" width="100%" border="0" cellspacing="1"
+	bgcolor="#474747">
+	<tr>
+		<td><font color="#fff">Welcome : <%=username%></font></td>
+	</tr>
+	<tr>
+		<td width="160" />
+		<td width="800"><img src="images/banner.png" width="600"
+			height="80" /></td>
+		<td width="130"><img src="images/wso2-logo.png" width="100"
+			height="40" /></td>
+	</tr>
+</table>
+<div id="maindiv">
+
+	<nav>
+	<ul id="menu">
+		<li><a href="home.jsp"><span><span>Home</span></span></a></li>
+		<li><a href="about.jsp"><span><span>About</span></span></a></li>
+		<li><a>Device</a>
+			<ul>
+				<li><a href="add_device.jsp">Add Devices</a></li>
+				<li><a href="updateordelete_device.jsp">Alter Details</a></li>
+				<li><a href="get_device.jsp">View Device</a></li>
+				<li><a href="add_devicetype.jsp">Add Device Type</a></li>
+				<li><a href="getdevicetype.jsp">View Device Type</a></li>
+			</ul></li>
+		<li><a href="home.jsp">Activity</a>
+			<ul>
+				<li><a href="add_transaction.jsp">Lend</a></li>
+				<li><a href="get_transaction.jsp">View Activity</a></li>
+				<li><a href="updateordelete_transaction.jsp">Alter Activity</a></li>
+			</ul></li>
+		<li><a href="home.jsp">Administration</a>
+			<ul>
+				<li><a href="getMyProfile.jsp">My Information</a></li>
+				<li><a href="user_register.jsp">Add User</a></li>
+				<li><a href="get_user.jsp">Delete User</a></li>
+				<li><a href="get_user.jsp">Edit User</a></li>
+				<li><a href="add_transaction_status.jsp">Add Activity
+						Status</a></li>
+				<li><a href="get_transaction_status.jsp">View Activity
+						Status</a></li>
+				<li><a href="add_device_status.jsp">Add Device Status</a></li>
+				<li><a href="get_device_status.jsp">View Device Status</a></li>
+
+			</ul></li>
+
+	</ul>
+	</nav>
+	<center style="Background-color: #ccff00;">
+		<b><font color="red"> <%
  	String errorMessage = (String) request
-       			.getAttribute(BackendConstants.ERROR_MESSAGE);
-       	if (errorMessage != null) {
-       		out.println("*" + errorMessage);
-       	}
+ 				.getAttribute(BackendConstants.ERROR_MESSAGE);
+ 		if (errorMessage != null) {
+ 			out.println("*" + errorMessage);
+ 		}
  %>
-			</font></b>
-		</center>
+		</font></b>
+	</center>
 
-		<%
-			LinkedList<Device> deviceList = (LinkedList<Device>) session
+	<%
+		LinkedList<Device> deviceList = (LinkedList<Device>) session
 					.getAttribute("DeviceList");
-		%>
+	%>
 
-		<div id="frame">
-			<div id="content">
-				<form action="DeviceController" method="get">
-					<table width="900" height="80" border="0" cellspacing="1">
-						<tr height="60"></tr>
+	<div id="frame">
+		<div id="content">
+			<form action="DeviceController" method="post">
+
+				<table width="900" height="80" border="0" cellspacing="1">
+					<tr height="60">
+						<td align="center"><font font-size="large">Search for
+								Activities</font></td>
+					</tr>
+					<%
+						if (deviceList != null) {
+					%>
+					<tr height="50">
+
+						<td align="center">Device : <input type="text" id="dNAME"
+							list="searchDeviceList" name="dNAME" class="dNAME"
+							placeholder="search here" autocomplete="off" /> <datalist
+								id="searchDeviceList"> <%
+ 	for (int y = 0; y < deviceList.size(); y++) {
+ %>
+							<option id="<%=deviceList.get(y).getId()%>"
+								value="<%=deviceList.get(y).getName()%>">
+								<%=deviceList.get(y).getName()%>
+							</option>
+							<%
+								}
+							%> </datalist>
+						</td>
+					</tr>
+
+					<tr>
+
+						</td>
 
 
-
-						<tr>
-
-							<!-- <td width="250"><img src="images/repo.jpg" width="210"
-								height="210" /></td> -->
-
-
-							<td><select name="dID">
-
-									<option selected="selected">Not Selected</option>
-
-									<%
-										if (deviceList != null) {
-																	
-																																							String actionType = "loadDevice";
-																																							session.setAttribute("actionType", actionType);
-									%>
-									<script type="text/javascript">
-										loadDevices();
-									</script>
-									<%
-										for (int y = 0; y < deviceList.size(); y++) {
-									%>
-									<option>
-										<%=deviceList.get(y).getId()%>
-									</option>
-
-									<%
-										}
-																								} else {
-																																							
-																							String actionType = "loadDevice";
-																							session.setAttribute("actionType", actionType);
-									%>
-
-									<script type="text/javascript">
-										loadDevices();
-									</script>
-
-									<%
-										response.setIntHeader("Refresh", 5);
-
-																	}
-									%>
+						<td align="center"><br /> <input type="submit"
+							value="Get All Device" name="getDvices" />
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit"
+							value="Search" name="getSearch" /> <%
+ 	} else {
+ %> <%
+ 	out.println("Please wait .. ");
+ 			response.setIntHeader("Refresh", 2);
+ 		}
+ %></td>
 
 
 
-							</select></td>
+					</tr>
+					<tr height="60"></tr>
+				</table>
 
-							<td><select name="dNAME">
+			</form>
+			<%
+				} else {
+					String url = "/";
+			%>
+			<jsp:forward page="<%=url%>" />
+			<%
+				}
+			%>
 
-									<option selected="selected">Not Selected</option>
-									<%
-										if (deviceList != null) {
-
-																																							String actionType = "loadDevice";
-																																							session.setAttribute("actionType", actionType);
-									%>
-									<script type="text/javascript">
-										loadDevices();
-									</script>
-									<%
-										for (int y = 0; y < deviceList.size(); y++) {
-									%>
-									<option>
-										<%=deviceList.get(y).getName()%>
-									</option>
-
-									<%
-										}
-																								} else {
-																																							
-																							String actionType = "loadDevice";
-																							session.setAttribute("actionType", actionType);
-									%>
-
-									<script type="text/javascript">
-										loadDevices();
-									</script>
-
-									<%
-										response.setIntHeader("Refresh", 5);
-
-										}
-									%>
-
-
-
-							</select></td>
-
-
-						</tr>
-
-						<tr height="60">
-
-							<td><input type="submit" value="Get All Device"
-								name="getDvices" /></td>
-							<td> <input type="submit" value="Search"
-								name="getSearch" /></td>
-						</tr>
-					</table>
-				</form>
-
-			</div>
 		</div>
+	</div>
 
-		<footer>
+	<footer>
 
-		<p class="rf">©2014 WSO2</p>
-		<div style="clear: both;"></div>
-		</footer>
-</body>
+	<p class="rf">©2014 WSO2</p>
+	<div style="clear: both;"></div>
+	</footer>
+	</body>
 </html>
