@@ -126,10 +126,10 @@
 		<div id="frame">
 			<div id="content">
 				<center>
-					<h3>Delete Device</h3>
+					<h3>Alter Device</h3>
 				</center>
 				<form action="DeviceController" method="post">
-					<table width="900" height="80" border="1" cellspacing="1">
+					<table width="900" height="80" class="tdata">
 						<tr height="60"></tr>
 						<tr>
 							<th>Device Id</th>
@@ -144,8 +144,8 @@
 						<%
 							if (deviceList != null) {
 
-																								String actionType = "getDvicesOnLoad";
-																								session.setAttribute("actionType", actionType);
+							String actionType = "getDvicesOnLoad";
+							session.setAttribute("actionType", actionType);
 						%>
 						<script type="text/javascript">
 							loadDevices();
@@ -169,17 +169,17 @@
 							}
 																							} else {
 
-																								String actionType = "getDvicesOnLoad";
-																									session.setAttribute("actionType", actionType);
+							String actionType = "getDvicesOnLoad";
+							session.setAttribute("actionType", actionType);
 						%>
 
-						<script type="text/javascript">
+						<!-- <script type="text/javascript">
 							loadDevices();
-						</script>
+						</script> -->
 
 
 						<%
-							response.setIntHeader("Refresh", 5);
+							response.setIntHeader("Refresh", 2);
 
 								}
 						%>

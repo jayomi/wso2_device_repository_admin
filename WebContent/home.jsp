@@ -109,6 +109,38 @@
 		</ul>
 		</nav>
 		
+		<div id="frame">
+			<div id="content">
+
+				<table width="900" height="80" border="0" cellspacing="1">
+					<tr height="60"></tr>
+
+
+
+					<tr>
+						
+						<td width="250"><img src="images/repo.jpg" width="210"
+							height="210" /></td>
+						<td width="600">
+							<h3 align="left">Features</h3> <br />
+							<li type="square">To track the status of devices</li>
+						<br />
+							<li type="square">To track owner of the devices</li>
+						<br />
+							<li type="square">Device types, statues configurable</li>
+						<br />
+
+
+						</td>
+						<td width="20">
+					</tr>
+
+					<tr height="60"></tr>
+				</table>
+
+			</div>
+		</div>
+		
 		<%
 			String errorMessage = (String) request
 							.getAttribute(BackendConstants.ERROR_MESSAGE);

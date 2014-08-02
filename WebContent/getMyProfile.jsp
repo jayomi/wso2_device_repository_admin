@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<title>Insert title here</title>
+<title>My Information</title>
 </head>
 
 <script>
@@ -128,7 +128,7 @@
 		<div id="frame">
 			<div id="content">
 				<center>
-					<h3>Delete Device</h3>
+					<h3>My Information</h3>
 				</center>
 				<form action="UserController" method="post">
 					<center>
@@ -220,7 +220,7 @@
 
 
 							<%
-								response.setIntHeader("Refresh", 5);
+								response.setIntHeader("Refresh", 2);
 
 									}
 							%>

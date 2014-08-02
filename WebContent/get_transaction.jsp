@@ -133,8 +133,7 @@
 				<form action="TransactionController" method="get">
 					<table width="900" height="80" border="0" cellspacing="1">
 						<tr height="60">
-							<td align="center"><font font-size="large">Search for
-									Activities</font></td>
+							<td align="center"><h3 align="center">Search for Activities</h3></td>
 						</tr>
 						<%
 							if (deviceList != null && statusList != null) {

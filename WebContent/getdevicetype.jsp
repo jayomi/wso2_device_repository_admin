@@ -9,7 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<title>Insert title here</title>
+<title>Get Device Type</title>
 </head>
 
 <script>
@@ -123,7 +123,7 @@
 			<div id="content">
 
 				<form action="DeviceTypeController" method="get">
-					<table width="900" height="80" border="1" cellspacing="1" class="tdata">
+					<table width="900" height="80" class="tdata">
 						<tr height="60"></tr>						
 
 						<tr>

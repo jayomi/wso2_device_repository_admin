@@ -105,7 +105,7 @@
 			<div id="content">
 				<form action="TransactionStatusController" method="get">
 					<center>
-						<h2>Add New Transaction Status</h2>
+						<h3>Add New Activity Status</h3>
 						<table border="0" cellspacing="1">
 
 

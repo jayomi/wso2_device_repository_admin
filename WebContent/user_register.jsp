@@ -29,16 +29,17 @@
 	</table>
 	<div id="maindiv">
 		
-		<!-- <nav>
+		<nav>
 		<ul id="menu">
 			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
 			<li><a href="about.jsp"><span><span>About</span></span></a></li>
 			<li><a>Device</a>
 				<ul>
 					<li><a href="add_device.jsp">Add Devices</a></li>
-					<li><a href="updateordelete_device.jsp">Edit Details</a></li>
-					<li><a href="get_device.jsp">Search</a></li>
-					<li><a href="updateordelete_device.jsp">Remove Device</a></li>
+					<li><a href="updateordelete_device.jsp">Alter Details</a></li>
+					<li><a href="get_device.jsp">View Device</a></li>
+					<li><a href="add_devicetype.jsp">Add Device Type</a></li>
+					<li><a href="getdevicetype.jsp">View Device Type</a></li>
 				</ul></li>
 			<li><a href="home.jsp">Activity</a>
 				<ul>
@@ -49,7 +50,7 @@
 				</ul></li>
 			<li><a href="home.jsp">Administration</a>
 				<ul>
-					<li><a href="home.jsp">My Information</a></li>
+					<li><a href="getMyProfile.jsp">My Information</a></li>
 					<li><a href="user_register.jsp">Add User</a></li>
 					<li><a href="get_user.jsp">Delete User</a></li>
 					<li><a href="get_user.jsp">Edit User</a></li>
@@ -63,7 +64,7 @@
 				</ul></li>
 
 		</ul>
-		</nav> -->
+		</nav>
 
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%

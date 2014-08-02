@@ -41,14 +41,14 @@
 							<tr height="100"></tr>
 
 							<tr>
-								<td>User Name :</td>
+								<td>Username </td>
 								<td><input type="text" name="userName"
-									placeholder="Enter User Name" /></td>
+									placeholder="Enter Username" /></td>
 							</tr>
 							<tr>
-								<td>Pass Word</td>
+								<td>Password </td>
 								<td><input type="password" name="passWord"
-									placeholder="Enter Pass Word" /></td>
+									placeholder="Enter Password" /></td>
 							</tr>
 							<tr>
 								<td></td>

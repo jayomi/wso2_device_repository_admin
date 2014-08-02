@@ -104,8 +104,8 @@
 			<div id="content">
 
 				<form action="DeviceStatusController" method="get">
-					<table class="CSSTable" width="1300" height="80" border="1"
-						cellspacing="1">
+					<table class="tdata" width="1300" height="80" border="0"
+						cellspacing="0">
 						<tr height="60"></tr>
 
 

@@ -110,8 +110,8 @@
 
 
 				<form action="TransactionStatusController" method="get">
-					<table width="900" height="80" border="1" cellspacing="1">
-						<tr height="60"></tr>
+					<table width="900" height="80" border="0" cellspacing="1">
+						<tr height="30"></tr>
 
 
 
@@ -119,7 +119,7 @@
 
 							<td width="250"></td>
 							<td width="600">
-								<h3 align="left">View Transaction Status</h3> <br /> <br /> <input
+								<h3 align="left">Search Activity Status</h3> <br /> <br /> <input
 								type="submit" value="Search" name="gettransactionstatus" /> <br />
 
 

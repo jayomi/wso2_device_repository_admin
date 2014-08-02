@@ -90,7 +90,7 @@
 						session.setAttribute("actionType", actionType);
 				%>
 
-				<h2 align="center">Add New Transaction</h2>
+				<h3 align="center">Lend a device</h3>
 				<form action="TransactionController" method="get">
 					<center style="Background-color: #ccff00;">
 						<b><font color="red"> <%
@@ -104,7 +104,7 @@
 					</center>
 					<center>
 						<table>
-							<tr height="60"></tr>
+							<tr height="30"></tr>
 
 							<tbody>
 

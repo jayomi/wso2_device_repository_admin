@@ -128,11 +128,11 @@
 		<div id="frame">
 			<div id="content">
 				<center>
-					<h3>Alter Transaction</h3>
+					<h3>Alter Activity</h3>
 				</center>
 				<form action="TransactionController" method="get">
-					<table width="900" height="80" border="1" cellspacing="1">
-						<tr height="60"></tr>
+					<table width="900" height="80" class="tdata">
+						<tr height="30"></tr>
 						<tr>
 							<th width="70">Activity Id</th>
 							<th width="100">Device</th>
