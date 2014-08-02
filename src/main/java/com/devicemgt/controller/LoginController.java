@@ -106,8 +106,8 @@ public class LoginController extends HttpServlet {
 
 				} else {
 					request.setAttribute(BackendConstants.ERROR_MESSAGE,"Username And/Or Password Wrong");
-					requestDispatcher = request
-							.getRequestDispatcher("index.jsp");
+//					requestDispatcher = request
+//							.getRequestDispatcher("index.jsp");
 					requestDispatcher.forward(request, response);
 				}
 
