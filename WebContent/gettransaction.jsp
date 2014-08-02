@@ -107,7 +107,7 @@
 			<div id="content">
 
 				<form action="TransactionController" method="get">
-					<table class="CSSTable" width="1300" height="80" border="1"
+					<table width="1300" height="80" border="0"
 						cellspacing="1" class="tdata">
 						<tr height="60"></tr>
 
