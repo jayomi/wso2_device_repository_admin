@@ -108,7 +108,7 @@
 
 				<form action="TransactionController" method="get">
 					<table class="CSSTable" width="1300" height="80" border="1"
-						cellspacing="1">
+						cellspacing="1" class="tdata">
 						<tr height="60"></tr>
 
 
@@ -190,11 +190,12 @@
 				%>
 			</div>
 		</div>
-
+<div>
 		<footer>
 
 		<p class="rf">©2014 WSO2</p>
 		<div style="clear: both;"></div>
 		</footer>
+		</div>
 </body>
 </html>

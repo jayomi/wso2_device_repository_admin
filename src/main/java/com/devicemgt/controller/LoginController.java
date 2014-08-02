@@ -49,7 +49,6 @@ public class LoginController extends HttpServlet {
 
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		
 
 		RequestDispatcher requestDispatcher = null;
 
@@ -69,11 +68,11 @@ public class LoginController extends HttpServlet {
 
 		if (isValidated) {
 
-			String encriptedPassword=new PasswordEncript().getEncriptedPassword(passWord);
-//			restURL = Rest.getProperty() + "/device_mgt_services/transaction/gettransactionsdetail?deviceId="+ strSearch + "&statusId=" + strSearch2;
-			String restURL = BackendConstants.SERVICEURL +"/login/getlogin?username="+ userName + "&password=" + encriptedPassword;
-//			String restURL = "https://appserver.dev.cloud.wso2.com/t/manil8056/webapps/devicemanagementser-default-SNAPSHOT/services/devicerepository/login/getlogin?username=sampath&password=693c444234d2169d4761111bc586bf549677576";
-			
+			String encriptedPassword = new PasswordEncript()
+					.getEncriptedPassword(passWord);
+			String restURL = BackendConstants.SERVICEURL
+					+ "/login/getlogin?username=" + userName + "&password="
+					+ encriptedPassword;
 
 			httpAPICaller = new HttpAPICaller();
 			String line = httpAPICaller.getRequest(restURL);
@@ -86,25 +85,32 @@ public class LoginController extends HttpServlet {
 
 				LinkedList<User> userList = userDAO.getUserList(line, "user");
 
-				HttpSession session = request.getSession();
+				if (userList.size() != 0) {
 
-				session.setAttribute(BackendConstants.LOGIN, userList);
-//				request.getSession().setAttribute(BackendConstants.LOGIN, userList);
-				
-				System.out.println(userList.get(0).getUsername());
-				
-				if(userList.get(0).getRole().equals("admin")){
-					response.sendRedirect("http://localhost:8080/devicerepoadmin/");
-				}
-				if(userList.get(0).getRole().equals("user")){
-					requestDispatcher = request.getRequestDispatcher("home.jsp");
+					HttpSession session = request.getSession();
+
+					session.setAttribute(BackendConstants.LOGIN, userList);
+					// request.getSession().setAttribute(BackendConstants.LOGIN,
+					// userList);
+
+					System.out.println(userList.get(0).getUsername());
+
+					if (userList.get(0).getRole().equals("admin")) {
+						response.sendRedirect("https://appserver.dev.cloud.wso2.com/t/isg9251/webapps/devicerepoadmin-default-SNAPSHOT/");
+					}
+					if (userList.get(0).getRole().equals("user")) {
+						requestDispatcher = request
+								.getRequestDispatcher("home.jsp");
+						requestDispatcher.forward(request, response);
+					}
+
+				} else {
+					request.setAttribute(BackendConstants.ERROR_MESSAGE,"Username And/Or Password Wrong");
+					requestDispatcher = request
+							.getRequestDispatcher("index.jsp");
 					requestDispatcher.forward(request, response);
 				}
-				
-				
-			} else {
-				requestDispatcher = request.getRequestDispatcher("index.jsp");
-				requestDispatcher.forward(request, response);
+
 			}
 
 		} else {
@@ -122,7 +128,7 @@ public class LoginController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		
+
 	}
 
 }

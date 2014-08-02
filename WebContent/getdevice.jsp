@@ -105,7 +105,7 @@
 			<div id="content">
 
 				<form action="DeviceController" method="post">
-					<table width="900" height="80" border="1" cellspacing="1">
+					<table width="900" height="80" border="1" cellspacing="1" class="tdata">
 						<tr height="60"></tr>
 
 
