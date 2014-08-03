@@ -139,12 +139,12 @@ public class DeviceController extends HttpServlet {
 						options = "?deviceName=" + strSelectName;
 						firstPara = true;
 					} else {
-						options = options + "&d_name=" + strSelectName;
+						options = options + "&deviceName=" + strSelectName;
 					}
 
 				}
 
-				String restURL = BackendConstants.SERVICEURL +"/searchdevice";
+				String restURL = BackendConstants.SERVICEURL +"/device/getdevicesdetail";
 
 				if (firstPara) {
 					restURL = restURL + options;
