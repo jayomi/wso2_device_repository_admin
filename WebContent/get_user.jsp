@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <meta http-equiv=”refresh” content=”5" /> -->
+<meta http-equiv=”refresh” content=”5 " />
 <title>WSO2 Device Repository</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 
@@ -35,22 +35,22 @@
 
 	<%
 		String username=null;
-		String role="user";
-		
-		Cookie cookie = null;
-		   Cookie[] cookies = null;
-		   cookies = request.getCookies();
-		   if( cookies != null ){
-			   for (int i = 0; i < cookies.length; i++){
-			         cookie = cookies[i];
-			         if(cookie.getName( ).equals("user_name")){
-			        	 username=cookie.getValue();
-			         }else if(cookie.getName( ).equals("user_role")){
-			        	 role=cookie.getValue();
-			         }
-			   }}
-		
-			   if(username!=null ){
+			String role="user";
+			
+			Cookie cookie = null;
+			   Cookie[] cookies = null;
+			   cookies = request.getCookies();
+			   if( cookies != null ){
+		   for (int i = 0; i < cookies.length; i++){
+		         cookie = cookies[i];
+		         if(cookie.getName( ).equals("user_name")){
+		        	 username=cookie.getValue();
+		         }else if(cookie.getName( ).equals("user_role")){
+		        	 role=cookie.getValue();
+		         }
+		   }}
+			
+		   if(username!=null ){
 	%>
 	<table height="100" width="100%" border="0" cellspacing="1"
 		bgcolor="#474747">
@@ -67,7 +67,7 @@
 	</table>
 
 	<div id="maindiv">
-		
+
 		<nav>
 		<ul id="menu">
 			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
@@ -108,10 +108,10 @@
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request
-        			.getAttribute(BackendConstants.ERROR_MESSAGE);
-        	if (errorMessage != null) {
-        		out.println("*" + errorMessage);
-        	}
+         			.getAttribute(BackendConstants.ERROR_MESSAGE);
+         	if (errorMessage != null) {
+         		out.println("*" + errorMessage);
+         	}
  %>
 			</font></b>
 		</center>
@@ -121,6 +121,10 @@
 		<%
 			/* String actionType2 = "editUser";
 				session.setAttribute("actionType", actionType2); */
+				
+
+				String actionType = "getUsersOnLoad";
+				session.setAttribute("actionType", actionType); 
 				
 			LinkedList<User> deviceList = (LinkedList<User>) session
 					.getAttribute("UserList");
@@ -148,13 +152,10 @@
 						</tr>
 						<%
 							if (deviceList != null) {
-
-																				/* String actionType = "getUsersOnLoad";
-																				session.setAttribute("actionType", actionType); */
 						%>
-						<script type="text/javascript">
+						<!-- 	<script type="text/javascript">
 							loadUsers();
-						</script>
+						</script> -->
 						<%
 							for (int y = 0; y < deviceList.size(); y++) {
 						%>
@@ -174,10 +175,10 @@
 						</tr>
 						<%
 							}
-																			} else {
+						} else {
 
-																				String actionType = "getUsersOnLoad";
-																					session.setAttribute("actionType", actionType);
+						/* String actionType = "getUsersOnLoad";
+						session.setAttribute("actionType", actionType); */
 						%>
 
 						<script type="text/javascript">

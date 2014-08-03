@@ -152,13 +152,13 @@
 																																	/* String actionType = "getMyProfile";
 																																	session.setAttribute("actionType", actionType); */
 							%>
-							<script type="text/javascript">
+							<!-- <script type="text/javascript">
 								loadUsers();
-							</script>
+							</script> -->
 							<%
 								for (int y = 0; y < deviceList.size(); y++) {
 																					
-																					if(deviceList.get(y).getUserId().equals(userId)){
+									if(deviceList.get(y).getUserId().equals(userId)){
 							%>
 
 							<tr>

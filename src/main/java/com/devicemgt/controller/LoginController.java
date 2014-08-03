@@ -95,19 +95,19 @@ public class LoginController extends HttpServlet {
 
 					System.out.println(userList.get(0).getUsername());
 
-					if (userList.get(0).getRole().equals("user")) {
-						response.sendRedirect("https://appserver.dev.cloud.wso2.com/t/isg9251/webapps/devicerepository-default-SNAPSHOT/");
-					}
 					if (userList.get(0).getRole().equals("admin")) {
 						requestDispatcher = request
 								.getRequestDispatcher("home.jsp");
 						requestDispatcher.forward(request, response);
+					} else if (userList.get(0).getRole().equals("user")) {
+						response.sendRedirect("https://appserver.dev.cloud.wso2.com/t/isg9251/webapps/devicerepository-default-SNAPSHOT/");
 					}
 
 				} else {
-					request.setAttribute(BackendConstants.ERROR_MESSAGE,"Username And/Or Password Wrong");
-//					requestDispatcher = request
-//							.getRequestDispatcher("index.jsp");
+					request.setAttribute(BackendConstants.ERROR_MESSAGE,
+							"Username And/Or Password Wrong");
+					// requestDispatcher = request
+					// .getRequestDispatcher("index.jsp");
 					requestDispatcher.forward(request, response);
 				}
 

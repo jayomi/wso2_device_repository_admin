@@ -34,23 +34,24 @@
 <body id="page1">
 
 	<%
-		String username=null;
-		String role="user";
-		
+		String username = null;
+		String role = "user";
+
 		Cookie cookie = null;
-		   Cookie[] cookies = null;
-		   cookies = request.getCookies();
-		   if( cookies != null ){
-			   for (int i = 0; i < cookies.length; i++){
-			         cookie = cookies[i];
-			         if(cookie.getName( ).equals("user_name")){
-			        	 username=cookie.getValue();
-			         }else if(cookie.getName( ).equals("user_role")){
-			        	 role=cookie.getValue();
-			         }
-			   }}
-		
-			   if(username!=null ){
+		Cookie[] cookies = null;
+		cookies = request.getCookies();
+		if (cookies != null) {
+			for (int i = 0; i < cookies.length; i++) {
+				cookie = cookies[i];
+				if (cookie.getName().equals("user_name")) {
+					username = cookie.getValue();
+				} else if (cookie.getName().equals("user_role")) {
+					role = cookie.getValue();
+				}
+			}
+		}
+
+		if (username != null) {
 	%>
 
 	<table height="100" width="100%" border="0" cellspacing="1"
@@ -67,7 +68,7 @@
 		</tr>
 	</table>
 	<div id="maindiv">
-		
+
 		<nav>
 		<ul id="menu">
 			<li><a href="home.jsp"><span><span>Home</span></span></a></li>
@@ -104,14 +105,14 @@
 
 		</ul>
 		</nav>
-		
+
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request
-         			.getAttribute(BackendConstants.ERROR_MESSAGE);
-         	if (errorMessage != null) {
-         		out.println("*" + errorMessage);
-         	}
+ 				.getAttribute(BackendConstants.ERROR_MESSAGE);
+ 		if (errorMessage != null) {
+ 			out.println("*" + errorMessage);
+ 		}
  %>
 			</font></b>
 		</center>
@@ -119,8 +120,11 @@
 
 
 		<%
-			LinkedList<Device> deviceList = (LinkedList<Device>) session
-					.getAttribute("DeviceList");
+			String actionType = "getDvicesOnLoad";
+				session.setAttribute("actionType", actionType);
+
+				LinkedList<Device> deviceList = (LinkedList<Device>) session
+						.getAttribute("DeviceList");
 		%>
 
 		<div id="frame">
@@ -143,13 +147,10 @@
 						</tr>
 						<%
 							if (deviceList != null) {
-
-							String actionType = "getDvicesOnLoad";
-							session.setAttribute("actionType", actionType);
 						%>
-						<script type="text/javascript">
+						<!-- <script type="text/javascript">
 							loadDevices();
-						</script>
+						</script> -->
 						<%
 							for (int y = 0; y < deviceList.size(); y++) {
 						%>
@@ -167,15 +168,15 @@
 						</tr>
 						<%
 							}
-																							} else {
+								} else {
 
-							String actionType = "getDvicesOnLoad";
-							session.setAttribute("actionType", actionType);
+									/* String actionType = "getDvicesOnLoad";
+									session.setAttribute("actionType", actionType); */
 						%>
 
-						<!-- <script type="text/javascript">
+						<script type="text/javascript">
 							loadDevices();
-						</script> -->
+						</script>
 
 
 						<%
