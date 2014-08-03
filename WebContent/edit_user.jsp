@@ -47,7 +47,7 @@
 		</tr>
 	</table>
 	<div id="maindiv">
-		
+
 		<nav>
 		<ul id="menu">
 			<li><a href="home.jsp"><span><span>Home</span></span></a></li>

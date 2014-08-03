@@ -35,23 +35,23 @@
 
 	<%
 		String username = null;
-		String role = "user";
+			String role = "user";
 
-		Cookie cookie = null;
-		Cookie[] cookies = null;
-		cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				cookie = cookies[i];
-				if (cookie.getName().equals("user_name")) {
-					username = cookie.getValue();
-				} else if (cookie.getName().equals("user_role")) {
-					role = cookie.getValue();
-				}
+			Cookie cookie = null;
+			Cookie[] cookies = null;
+			cookies = request.getCookies();
+			if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
+			cookie = cookies[i];
+			if (cookie.getName().equals("user_name")) {
+				username = cookie.getValue();
+			} else if (cookie.getName().equals("user_role")) {
+				role = cookie.getValue();
 			}
 		}
+			}
 
-		if (username != null) {
+			if (username != null) {
 	%>
 
 	<table height="100" width="100%" border="0" cellspacing="1"
@@ -109,10 +109,10 @@
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request
- 				.getAttribute(BackendConstants.ERROR_MESSAGE);
- 		if (errorMessage != null) {
- 			out.println("*" + errorMessage);
- 		}
+  				.getAttribute(BackendConstants.ERROR_MESSAGE);
+  		if (errorMessage != null) {
+  			out.println("*" + errorMessage);
+  		}
  %>
 			</font></b>
 		</center>
@@ -168,10 +168,10 @@
 						</tr>
 						<%
 							}
-								} else {
+												} else {
 
-									/* String actionType = "getDvicesOnLoad";
-									session.setAttribute("actionType", actionType); */
+													/* String actionType = "getDvicesOnLoad";
+													session.setAttribute("actionType", actionType); */
 						%>
 
 						<script type="text/javascript">

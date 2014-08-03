@@ -34,26 +34,26 @@
 
 	<%
 		String username = null;
-		String role = "user";
-		String userId=null;
+			String role = "user";
+			String userId=null;
 
-		Cookie cookie = null;
-		Cookie[] cookies = null;
-		cookies = request.getCookies();
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-		cookie = cookies[i];
-		if (cookie.getName().equals("user_name")) {
-			username = cookie.getValue();
-		} else if (cookie.getName().equals("user_role")) {
-			role = cookie.getValue();
-		}else if (cookie.getName().equals("user_id")) {
-			userId = cookie.getValue();
-		}
+			Cookie cookie = null;
+			Cookie[] cookies = null;
+			cookies = request.getCookies();
+			if (cookies != null) {
+		for (int i = 0; i < cookies.length; i++) {
+			cookie = cookies[i];
+			if (cookie.getName().equals("user_name")) {
+		username = cookie.getValue();
+			} else if (cookie.getName().equals("user_role")) {
+		role = cookie.getValue();
+			}else if (cookie.getName().equals("user_id")) {
+		userId = cookie.getValue();
 			}
 		}
+			}
 
-		if (username != null) {
+			if (username != null) {
 	%>
 
 	<table height="100" width="100%" border="0" cellspacing="1"
@@ -111,9 +111,9 @@
 		<center style="Background-color: #ccff00;">
 			<b><font color="red"> <%
  	String errorMessage = (String) request.getAttribute(BackendConstants.ERROR_MESSAGE);
-     	if (errorMessage != null) {
-     		out.println("*" + errorMessage);
-     	}
+      	if (errorMessage != null) {
+      		out.println("*" + errorMessage);
+      	}
  %>
 			</font></b>
 		</center>
@@ -149,16 +149,16 @@
 							<%
 								if (deviceList != null) {
 
-																																	/* String actionType = "getMyProfile";
-																																	session.setAttribute("actionType", actionType); */
+																																						/* String actionType = "getMyProfile";
+																																						session.setAttribute("actionType", actionType); */
 							%>
 							<!-- <script type="text/javascript">
 								loadUsers();
 							</script> -->
 							<%
 								for (int y = 0; y < deviceList.size(); y++) {
-																					
-									if(deviceList.get(y).getUserId().equals(userId)){
+																										
+														if(deviceList.get(y).getUserId().equals(userId)){
 							%>
 
 							<tr>
@@ -208,10 +208,10 @@
 							</tr>
 							<%
 								}}
-																																} else {
+																																					} else {
 
-																																	String actionType = "getMyProfile";
-																																		session.setAttribute("actionType", actionType);
+																																						String actionType = "getMyProfile";
+																																							session.setAttribute("actionType", actionType);
 							%>
 
 							<script type="text/javascript">
